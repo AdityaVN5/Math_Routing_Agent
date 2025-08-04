@@ -2,6 +2,14 @@
 
 This project is a full-stack application designed to solve math problems. It features a sophisticated backend built with FastAPI and LangGraph, a user-friendly frontend, and a comprehensive suite for benchmarking performance. The agent can retrieve information from a knowledge base, perform web searches, and refine its answers based on user feedback.
 
+The Agenet was deployed using Render and Netlify(frontend).
+
+Live Link: https://mathroutingagent.netlify.app/
+
+*Note: (For the initial run, it will take some time as I am using Render free version which offers limited resources. The subsequent runs won't take much time.)*
+
+![alt text](image-1.png)
+
 ## Features
 
 * **Advanced Backend**: The core of the application is a powerful backend that uses an agentic workflow to process and route user queries for solving math problems.
@@ -26,7 +34,7 @@ Make sure you have Python 3.7+ and Node.js installed on your system.
 1.  **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/your-username/math-routing-agent.git](https://github.com/your-username/math-routing-agent.git)
+    git clone https://github.com/your-username/math-routing-agent.git
     cd math-routing-agent
     ```
 
@@ -53,7 +61,7 @@ Make sure you have Python 3.7+ and Node.js installed on your system.
     ```
 
     The backend server will be running on `http://127.0.0.1:8000`.
-    
+
     Note: Make sure to create a .env file to store your API Keys. (LLM key, Tavily Key)
 
 2.  **Start the frontend application:**
@@ -114,8 +122,16 @@ python inference.py --model agentic --mode CoT --data data/dataset.json --num_pr
 python compute_metrics.py --model agentic --mode CoT --data data/dataset.json --response_path responses/Agentic_CoT_responses/responses.json
 
 ```
+## JEE Bench Results
+To evaluate the agent's performance on more complex, competitive-exam-level problems, we benchmarked the solution against a subset of the JEE Bench dataset (I filtered out the dataset by removing the physics, chemistry questions). The results demonstrate a strong foundational capability in mathematical problem-solving.
 
-For detailed instructions on running the benchmarks, please refer to the documentation within the `Benchmark Evaluation/` directory.
+![alt text](image.png)
+
+**Performance Analysis**
+* Subject: Mathematics
+* Total Questions: 10
+* Mean Score: 0.725
+
 
 ## Frontend
 

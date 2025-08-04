@@ -10,7 +10,7 @@ function App() {
 
   const handleAsk = async () => {
     setLoading(true);
-    const response = await fetch('https://mathagent-backend.onrender.com/ask', {
+    const response = await fetch('http://127.0.0.1:8000/ask', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ function App() {
 
   const handleRefine = async () => {
     setLoading(true);
-    const response = await fetch('https://mathagent-backend.onrender.com/refine', {
+    const response = await fetch('http://127.0.0.1:8000/refine', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

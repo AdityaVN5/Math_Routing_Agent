@@ -1,0 +1,89 @@
+import React, { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import './App.css';
+
+function App() {
+  const [question, setQuestion] = useState('');
+  const [answer, setAnswer] = useState('');
+  const [feedback, setFeedback] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleAsk = async () => {
+    setLoading(true);
+    const response = await fetch('https://mathagent-backend.onrender.com/ask', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ question }),
+    });
+    const data = await response.json();
+    setAnswer(data.answer);
+    setLoading(false);
+  };
+
+  const handleReset = () => {
+    setQuestion('');
+    setAnswer('');
+    setFeedback('');
+  };
+
+  const handleRefine = async () => {
+    setLoading(true);
+    const response = await fetch('https://mathagent-backend.onrender.com/refine', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        question: question,
+        initial_answer: answer,
+        feedback: feedback,
+      }),
+    });
+    const data = await response.json();
+    setAnswer(data.refined_answer);
+    setLoading(false);
+  };
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>Math Routing Agent</h1>
+        <div className="card">
+          <input
+            type="text"
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            placeholder="Ask a math question"
+          />
+          <button className="ask-button" onClick={handleAsk} disabled={loading}>
+            {loading ? 'Thinking...' : 'Ask'}
+          </button>
+          <button onClick={handleReset} disabled={loading}>
+            Reset
+          </button>
+        </div>
+        {answer && (
+          <div className="card">
+            <h2>Answer:</h2>
+            <ReactMarkdown>{answer}</ReactMarkdown>
+            <div className="feedback-section">
+              <input
+                type="text"
+                value={feedback}
+                onChange={(e) => setFeedback(e.target.value)}
+                placeholder="Provide feedback to refine the answer"
+              />
+              <button onClick={handleRefine} disabled={loading}>
+                {loading ? 'Refining...' : 'Refine Answer'}
+              </button>
+            </div>
+          </div>
+        )}
+      </header>
+    </div>
+  );
+}
+
+export default App;

@@ -53,6 +53,7 @@ Make sure you have Python 3.7+ and Node.js installed on your system.
     ```
 
     The backend server will be running on `http://127.0.0.1:8000`.
+    
     Note: Make sure to create a .env file to store your API Keys. (LLM key, Tavily Key)
 
 2.  **Start the frontend application:**
@@ -105,7 +106,14 @@ The backend provides the following API endpoints:
 The `Benchmark Evaluation/` directory contains all the necessary tools to evaluate the performance of the math agent.
 
 * **`inference.py`**: Runs the inference process to get the agent's responses for a given dataset.
+```
+python inference.py --model agentic --mode CoT --data data/dataset.json --num_procs 1 --max_questions 10
+```
 * **`compute_metrics.py`**: Computes and saves the performance metrics of the agent.
+```
+python compute_metrics.py --model agentic --mode CoT --data data/dataset.json --response_path responses/Agentic_CoT_responses/responses.json
+
+```
 
 For detailed instructions on running the benchmarks, please refer to the documentation within the `Benchmark Evaluation/` directory.
 
